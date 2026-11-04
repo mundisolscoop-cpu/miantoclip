@@ -4,242 +4,243 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MIAntoClip — Estudio IA</title>
+<title>MIAntoClip | Estudio de vídeo IA</title>
 <style>
-:root {
-  font-family: system-ui, sans-serif;
-  color: #f5f3ff;
-  background: #090b19;
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  background: radial-gradient(circle at top right,#34206a,#090b19 55%);
-}
-header,main,footer {
-  max-width: 1050px;
-  margin: auto;
-  padding: 24px;
-}
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.logo { font-size: 27px; font-weight: 850; }
-.logo span,h1 span { color: #b69cff; }
-h1 { font-size: clamp(36px,6vw,65px); }
-p { color: #c4c4d5; line-height: 1.6; }
-.panel {
-  background: #171a30;
-  border: 1px solid #393b5b;
-  border-radius: 20px;
-  padding: 24px;
-  margin: 24px 0;
-}
-textarea,select,button {
-  width: 100%;
-  padding: 15px;
-  border-radius: 12px;
-  margin-top: 12px;
-  font-size: 16px;
-}
-textarea,select {
-  background: #101326;
-  color: white;
-  border: 1px solid #494b69;
-}
-textarea { min-height: 130px; }
-button {
-  background: #a58aff;
-  color: #101020;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-}
-button:disabled { opacity: .5; }
-video {
-  width: 100%;
-  border-radius: 15px;
-  margin-top: 20px;
-}
-#error { color: #ff9292; white-space: pre-wrap; }
-#estado { color: #c4b5fd; }
+:root{font-family:system-ui,Arial,sans-serif;color:#f5f3ff;background:#090b19}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at top right,#35216b,#090b19 55%);min-height:100vh}
+header,main,footer{max-width:1050px;margin:auto;padding:24px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-size:27px;font-weight:850}
+.logo span,h1 span{color:#b69cff}
+nav{display:flex;gap:14px}
+a{color:#cbbaff;text-decoration:none}
+h1{font-size:clamp(34px,6vw,62px);margin-bottom:12px}
+p{color:#c4c4d5;line-height:1.6}
+.panel{background:#171a30;border:1px solid #373453;border-radius:20px;padding:24px;margin:24px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{display:block;margin:15px 0 7px;font-weight:600}
+input,select,textarea{width:100%;padding:13px;background:#0c1022;color:white;border:1px solid #494565;border-radius:10px;font:inherit}
+textarea{min-height:125px;resize:vertical}
+button{background:#a78bfa;color:#100b25;border:0;border-radius:12px;padding:14px 22px;font-weight:800;font-size:16px;cursor:pointer}
+button:disabled{opacity:.5;cursor:not-allowed}
+.secondary{background:#34304e;color:white}
+.hidden{display:none}
+video{width:100%;border-radius:14px;margin-top:15px}
+.status{padding:14px;border-radius:10px;background:#24243e;margin-top:16px;white-space:pre-wrap}
+small{color:#aaa6c4}
+footer{text-align:center;color:#999}
+@media(max-width:650px){.grid{grid-template-columns:1fr}header{flex-wrap:wrap}.panel{padding:17px}}
 </style>
 </head>
 <body>
-
 <header>
-  <div class="logo">MI<span>AntoClip</span></div>
-  <div>Estudio IA</div>
+<div class="logo">MI<span>AntoClip</span></div>
+<nav>
+<a href="#estudio">Estudio</a>
+<a href="#adultos">Adultos</a>
+</nav>
 </header>
-
 <main>
-  <h1>Crea vídeos con <span>inteligencia artificial</span></h1>
-  <p>Transforma tus ideas en vídeos espectaculares.</p>
+<section>
+<h1>Crea vídeos con <span>inteligencia artificial</span></h1>
+<p>Convierte tus ideas e imágenes en vídeos mediante IA. Un estudio creativo diseñado para crecer.</p>
+</section>
 
-  <section class="panel">
-    <h2>Generador de vídeo IA</h2>
+<section id="estudio" class="panel">
+<h2>🎬 Estudio de creación</h2>
+<label for="prompt">Describe tu vídeo</label>
+<textarea id="prompt" placeholder="Ejemplo: Un paisaje de Alaska con montañas nevadas, auroras boreales y movimiento cinematográfico"></textarea>
 
-    <textarea id="prompt" placeholder="Describe el vídeo que quieres crear..."></textarea>
+<div class="grid">
+<div>
+<label for="mode">Tipo de generación</label>
+<select id="mode">
+<option value="text">Texto a vídeo</option>
+<option value="image">Imagen a vídeo</option>
+</select>
+</div>
+<div>
+<label for="duration">Duración deseada</label>
+<select id="duration">
+<option value="5">5 segundos</option>
+<option value="10">10 segundos</option>
+<option value="30">30 segundos</option>
+<option value="60">1 minuto</option>
+<option value="120">2 minutos</option>
+<option value="300">5 minutos</option>
+</select>
+</div>
+<div>
+<label for="ratio">Formato</label>
+<select id="ratio">
+<option value="1280:720">Horizontal 16:9</option>
+<option value="720:1280">Vertical 9:16</option>
+</select>
+</div>
+<div>
+<label for="image">Imagen de referencia</label>
+<input id="image" type="file" accept="image/png,image/jpeg,image/webp">
+</div>
+</div>
+<p><small>Las duraciones largas requieren generación por segmentos y montaje mediante el servidor. No están disponibles hasta configurar esa función.</small></p>
+<button id="generate">Generar vídeo</button>
+<div id="status" class="status" role="status" aria-live="polite">Estudio preparado. Configura la conexión para comenzar.</div>
+<div id="result" class="hidden">
+<h3>Resultado</h3>
+<video id="video" controls playsinline></video>
+<p><a id="download" target="_blank" rel="noopener noreferrer">Abrir vídeo generado</a></p>
+</div>
+</section>
 
-    <select id="duracion">
-      <option value="5">5 segundos</option>
-      <option value="10">10 segundos</option>
-    </select>
-
-    <button id="generar">Generar vídeo</button>
-
-    <p id="estado"></p>
-    <p id="error"></p>
-    <div id="resultado"></div>
-  </section>
+<section id="adultos" class="panel">
+<h2>🔒 Espacio Adultos</h2>
+<p>Sección reservada para una futura ampliación de MIAntoClip.</p>
+<p>Estará desactivada hasta incorporar verificación de edad, controles de acceso y un motor compatible con las políticas aplicables.</p>
+<button class="secondary" disabled>Próximamente</button>
+</section>
 </main>
-
-<footer>MIAntoClip © 2026</footer>
+<footer>© 2026 MIAntoClip · Estudio de inteligencia artificial</footer>
 
 <script>
-// DIRECCIÓN REAL DE CLOUDFlARE WORKER
-const API_URL = "https://miantoclip.mundisolscoop.workers.dev";
+"use strict";
 
-const boton = document.getElementById("generar");
-const estado = document.getElementById("estado");
-const error = document.getElementById("error");
-const resultado = document.getElementById("resultado");
+/*
+CONFIGURACIÓN:
+Sustituye la dirección siguiente por la URL pública
+de tu Cloudflare Worker, sin barra final.
 
-function esperar(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+No coloques claves API de Runway en este archivo.
+La clave debe permanecer en los secretos del Worker.
+
+Contrato esperado del servidor:
+POST /generate
+Body: {prompt,duration,ratio,mode,image?}
+Respuesta: {taskId} o {videoUrl}
+
+GET /status/{taskId}
+Respuesta: {status,videoUrl?,error?}
+
+El Worker debe implementar estos endpoints.
+*/
+
+const WORKER_URL = "";
+
+const $ = id => document.getElementById(id);
+const generateButton = $("generate");
+const statusBox = $("status");
+const resultBox = $("result");
+
+function setStatus(message){
+ statusBox.textContent = message;
 }
 
-async function solicitar(url, opciones = {}) {
-  const controlador = new AbortController();
-  const temporizador = setTimeout(
-    () => controlador.abort(), 30000
-  );
-
-  try {
-    const respuesta = await fetch(url, {
-      ...opciones,
-      signal: controlador.signal
-    });
-
-    const texto = await respuesta.text();
-    let datos;
-
-    try {
-      datos = JSON.parse(texto);
-    } catch {
-      throw new Error(
-        "Respuesta no válida del servidor: " +
-        texto.slice(0, 300)
-      );
-    }
-
-    if (!respuesta.ok) {
-      const mensaje =
-        typeof datos.error === "string"
-          ? datos.error
-          : datos.error?.message ||
-            datos.message ||
-            "Error HTTP " + respuesta.status;
-      throw new Error(mensaje);
-    }
-
-    return datos;
-  } finally {
-    clearTimeout(temporizador);
-  }
+function sleep(ms){
+ return new Promise(resolve=>setTimeout(resolve,ms));
 }
 
-boton.addEventListener("click", async () => {
-  const prompt = document.getElementById("prompt").value.trim();
-  const duracion = Number(
-    document.getElementById("duracion").value
+function showVideo(url){
+ const parsed = new URL(url);
+ if(!["https:","http:"].includes(parsed.protocol)){
+  throw new Error("URL de vídeo no válida");
+ }
+ $("video").src = parsed.href;
+ $("download").href = parsed.href;
+ resultBox.classList.remove("hidden");
+ setStatus("Vídeo generado correctamente.");
+}
+
+async function readResponse(response){
+ const raw = await response.text();
+ let data;
+ try{
+  data = JSON.parse(raw);
+ }catch{
+  throw new Error("El servidor no devolvió JSON válido. HTTP "+response.status);
+ }
+ if(!response.ok){
+  throw new Error(data.error || data.message || "Error HTTP "+response.status);
+ }
+ return data;
+}
+
+async function pollTask(taskId){
+ for(let attempt=0;attempt<60;attempt++){
+  await sleep(5000);
+  const response = await fetch(
+   WORKER_URL+"/status/"+encodeURIComponent(taskId),
+   {method:"GET",cache:"no-store"}
   );
-
-  if (!prompt) {
-    error.textContent = "Escribe primero una descripción.";
-    return;
+  const data = await readResponse(response);
+  if(data.videoUrl){
+   showVideo(data.videoUrl);
+   return;
   }
-
-  boton.disabled = true;
-  error.textContent = "";
-  resultado.innerHTML = "";
-  estado.textContent = "Enviando solicitud...";
-
-  try {
-    const datos = await solicitar(API_URL + "/generate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt, duration: duracion })
-    });
-
-    let tarea = datos;
-
-    if (datos.id && !datos.videoUrl && !datos.url) {
-      let terminado = false;
-
-      for (let intento = 0; intento < 60; intento++) {
-        await esperar(5000);
-        estado.textContent =
-          "Generando vídeo... comprobación " + (intento + 1);
-
-        tarea = await solicitar(
-          API_URL + "/status/" + encodeURIComponent(datos.id)
-        );
-
-        if (["SUCCEEDED", "succeeded"].includes(tarea.status)) {
-          terminado = true;
-          break;
-        }
-
-        if (["FAILED","failed","CANCELLED","canceled"]
-            .includes(tarea.status)) {
-          throw new Error(
-            tarea.failure?.reason ||
-            tarea.failure ||
-            tarea.error?.message ||
-            tarea.error ||
-            "Generación fallida"
-          );
-        }
-      }
-
-      if (!terminado) {
-        throw new Error(
-          "La generación sigue pendiente después de 5 minutos."
-        );
-      }
-    }
-
-    const videoUrl =
-      tarea.videoUrl ||
-      tarea.url ||
-      tarea.output?.[0] ||
-      tarea.output?.url;
-
-    if (!videoUrl || typeof videoUrl !== "string") {
-      throw new Error(
-        "No se recibió un vídeo terminado. Estado: " +
-        (tarea.status || "desconocido")
-      );
-    }
-
-    const video = document.createElement("video");
-    video.controls = true;
-    video.src = videoUrl;
-    resultado.appendChild(video);
-    estado.textContent = "¡Vídeo generado!";
-
-  } catch (e) {
-    estado.textContent = "No se pudo generar el vídeo.";
-    error.textContent =
-      e.name === "AbortError"
-        ? "El servidor tardó demasiado en responder."
-        : e.message;
-  } finally {
-    boton.disabled = false;
+  if(["failed","error","cancelled"].includes(data.status)){
+   throw new Error(data.error || "La generación ha fallado");
   }
+  setStatus("Generando vídeo... comprobación "+(attempt+1)+"/60");
+ }
+ throw new Error("Tiempo de espera agotado. Comprueba el estado en el servidor.");
+}
+
+generateButton.addEventListener("click",async()=>{
+ if(!WORKER_URL || !/^https:\/\/[^/]+/.test(WORKER_URL)){
+  setStatus("Falta configurar la URL HTTPS del Cloudflare Worker en WORKER_URL.");
+  return;
+ }
+ const prompt = $("prompt").value.trim();
+ const duration = Number($("duration").value);
+ const ratio = $("ratio").value;
+ const mode = $("mode").value;
+ const image = $("image").files[0];
+
+ if(!prompt){
+  setStatus("Escribe una descripción del vídeo.");
+  return;
+ }
+ if(mode==="image" && !image){
+  setStatus("Selecciona una imagen para el modo imagen a vídeo.");
+  return;
+ }
+ if(duration>10){
+  setStatus("La duración seleccionada necesita un sistema de segmentos y montaje. Todavía no está conectado.");
+  return;
+ }
+
+ generateButton.disabled=true;
+ resultBox.classList.add("hidden");
+ $("video").removeAttribute("src");
+ $("video").load();
+
+ try{
+  setStatus("Enviando solicitud a Runway...");
+  const body = new FormData();
+  body.append("prompt",prompt);
+  body.append("duration",String(duration));
+  body.append("ratio",ratio);
+  body.append("mode",mode);
+  if(image) body.append("image",image);
+
+  const response = await fetch(WORKER_URL+"/generate",{
+   method:"POST",
+   body
+  });
+  const data = await readResponse(response);
+
+  if(data.videoUrl){
+   showVideo(data.videoUrl);
+  }else if(data.taskId){
+   setStatus("Solicitud aceptada. Generando vídeo...");
+   await pollTask(data.taskId);
+  }else{
+   throw new Error("El servidor no devolvió taskId ni videoUrl.");
+  }
+ }catch(error){
+  setStatus("Error: "+error.message);
+ }finally{
+  generateButton.disabled=false;
+ }
 });
 </script>
 </body>
