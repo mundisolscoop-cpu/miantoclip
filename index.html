@@ -99,8 +99,8 @@ video {
 <footer>MIAntoClip © 2026</footer>
 
 <script>
-// PEGA AQUÍ LA URL REAL DE TU WORKER
-const API_URL = "https://TU-WORKER.workers.dev";
+// DIRECCIÓN REAL DE CLOUDFlARE WORKER
+const API_URL = "https://miantoclip.mundisolscoop.workers.dev";
 
 const boton = document.getElementById("generar");
 const estado = document.getElementById("estado");
@@ -136,12 +136,13 @@ async function solicitar(url, opciones = {}) {
     }
 
     if (!respuesta.ok) {
-      throw new Error(
-        datos.error?.message ||
-        datos.error ||
-        datos.message ||
-        "Error HTTP " + respuesta.status
-      );
+      const mensaje =
+        typeof datos.error === "string"
+          ? datos.error
+          : datos.error?.message ||
+            datos.message ||
+            "Error HTTP " + respuesta.status;
+      throw new Error(mensaje);
     }
 
     return datos;
@@ -161,18 +162,12 @@ boton.addEventListener("click", async () => {
     return;
   }
 
-  if (API_URL.includes("TU-WORKER")) {
-    error.textContent = "Configura la URL del Worker.";
-    return;
-  }
-
   boton.disabled = true;
   error.textContent = "";
   resultado.innerHTML = "";
   estado.textContent = "Enviando solicitud...";
 
   try {
-    // El Worker debe aceptar POST /generate
     const datos = await solicitar(API_URL + "/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -182,25 +177,38 @@ boton.addEventListener("click", async () => {
     let tarea = datos;
 
     if (datos.id && !datos.videoUrl && !datos.url) {
+      let terminado = false;
+
       for (let intento = 0; intento < 60; intento++) {
         await esperar(5000);
         estado.textContent =
           "Generando vídeo... comprobación " + (intento + 1);
 
-        // El Worker debe aceptar GET /status/:id
         tarea = await solicitar(
           API_URL + "/status/" + encodeURIComponent(datos.id)
         );
 
-        if (tarea.status === "SUCCEEDED" ||
-            tarea.status === "succeeded") break;
+        if (["SUCCEEDED", "succeeded"].includes(tarea.status)) {
+          terminado = true;
+          break;
+        }
 
         if (["FAILED","failed","CANCELLED","canceled"]
             .includes(tarea.status)) {
           throw new Error(
-            tarea.failure || tarea.error || "Generación fallida"
+            tarea.failure?.reason ||
+            tarea.failure ||
+            tarea.error?.message ||
+            tarea.error ||
+            "Generación fallida"
           );
         }
+      }
+
+      if (!terminado) {
+        throw new Error(
+          "La generación sigue pendiente después de 5 minutos."
+        );
       }
     }
 
