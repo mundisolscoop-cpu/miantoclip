@@ -108,7 +108,7 @@ export default {
 
         return json({taskId: data.id});
       } catch (error) {
-        return json({error: "Error procesando la solicitud"}, 500);
+        return json({error: String(error)}, 500);
       }
     }
 
